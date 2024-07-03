@@ -53,4 +53,4 @@ def initialize_dir():
     manage_path(summary_stats_path)
 
     # 3 letter ISO code of the selected country
-    code = pd.read_csv('Country_code.csv')
+    code = pd.read_csv('../Country_code.csv')
