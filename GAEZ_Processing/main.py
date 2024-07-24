@@ -444,7 +444,7 @@ def main():
         OUTPUT:
         GeoDataFrame
         """
-        output = workspace + r'\placeholder.geojson'
+        output = workspace + r'/placeholder.geojson'
         with open(output, "w") as dst:
             collection = {
                 "type": "FeatureCollection",
@@ -474,11 +474,11 @@ def main():
     raster_files_con = list(set(raster_files_con))
     raster_files_dis = list(set(raster_files_dis))
 
-    print("We have identified {} continuous raster(s):".format(len(raster_files_con)), "\n", )
+    print("We have identified {} continuous raster(s):".format(len(raster_files_con)), "/n", )
     for raster in raster_files_con:
         print("*", raster)
 
-    print("\n", "We have identified {} discrete raster(s):".format(len(raster_files_dis)), "\n", )
+    print("/n", "We have identified {} discrete raster(s):".format(len(raster_files_dis)), "/n", )
     for raster in raster_files_dis:
         print("*", raster)
 
@@ -557,7 +557,7 @@ def main():
     print(' **Total area:** {:0.1f} sq.km'.format(data_gdf_LCsqkm.sqkm.sum()))
     print(LC_summary_table)
     print(
-        '#### Class Description \n\n LCType1 : >75% Cropland \n\n LCType2 : >75% Tree covered land \n\n  LCType3 : >75% Grassland shrub or herbaceous cover \n\n LCType4 : >75% Sparsely vegetated or bare \n\n LCType5 : 50-75% Cropland \n\n LCType6 : 50-75% Tree covered land \n\n LCType7 : 50-75% Grassland shrub or herbaceous cover \n\n LCType8 : 50-75% Sparsely vegetated or bare \n\n LCType9 : >50% Artificial surface \n\n LCType10 : Other land cover associations \n\n LCType11 : Water permanent snow glacier')
+        '#### Class Description /n/n LCType1 : >75% Cropland /n/n LCType2 : >75% Tree covered land /n/n  LCType3 : >75% Grassland shrub or herbaceous cover /n/n LCType4 : >75% Sparsely vegetated or bare /n/n LCType5 : 50-75% Cropland /n/n LCType6 : 50-75% Tree covered land /n/n LCType7 : 50-75% Grassland shrub or herbaceous cover /n/n LCType8 : 50-75% Sparsely vegetated or bare /n/n LCType9 : >50% Artificial surface /n/n LCType10 : Other land cover associations /n/n LCType11 : Water permanent snow glacier')
 
     # Calculate summary statistics for other than land cover attribute columns
     data_gdf_stat = data_gdf_LCsqkm
@@ -654,11 +654,11 @@ def main():
     additional_stat('evt')
 
     print(
-        '###  \n These are the summarized results for the other variables variables collected for **{}**'.format(
+        '###  /n These are the summarized results for the other variables variables collected for **{}**'.format(
             Full_name))
     print(other_summary_table)
     print(
-        '### Note! \n Units presented in this analysis are based on the CLEWs modelling framework.  The million tonnes per 1000 km² unit of measurement for agro-climatic potential yield. BCM (billion cubic meters) per 1000 km² is used to measure crop water deficit, crop evapotranspiration, and precipitation. These units have been chosen to ensure consistency with the CLEWs modelling methodology and facilitate comparability with other studies .')
+        '### Note! /n Units presented in this analysis are based on the CLEWs modelling framework.  The million tonnes per 1000 km² unit of measurement for agro-climatic potential yield. BCM (billion cubic meters) per 1000 km² is used to measure crop water deficit, crop evapotranspiration, and precipitation. These units have been chosen to ensure consistency with the CLEWs modelling methodology and facilitate comparability with other studies .')
 
     # Export national stats to csv
     LC_summary_table.to_csv(os.path.join(summary_stats_path, "{}_LandCover_National_summary.csv".format(country_name)))
