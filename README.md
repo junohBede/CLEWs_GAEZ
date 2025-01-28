@@ -1,36 +1,48 @@
 Introduction
 =====================================
 
-GeoCLEWs offers an extensive set of beneficial features for developers and users to process high-resolution land and water data for Climate, Land, Energy, and Water systems modelling (CLEWs). This script automatically collects data from  GAEZ v4 (Global Agro-Ecological Zones version 4) and FAOSTAT (Food and Agriculture Organization of the United Nations). GeoCLEWs performs processing and calibration of agro-climatic potential yield, crop water deficit, crop evapotranspiration, precipitation, and land cover. Outputs can be efficiently combined with additional data for CLEWs modelling, such as electricity information, to create a detailed CLEWs model without implementing complicated and time-consuming spatial processing. Jupiter Notebook code provides a comprehensive and detailed explanation of the processing steps involved.
+GeoCLEWs offers an extensive set of beneficial features for developers and users to process high-resolution land and water data for Climate, Land, Energy, and Water systems (CLEWs) modelling. This tool provides:
+- Detailed representation of land and water systems using high-resolution Global Agro-Ecological Zones ([GAEZ v4](https://gaez.fao.org/)) datasets and Food and Agriculture Organization of the United Nations (FAOSTAT), facilitating the development of CLEWs models in a clewsy-compatible format.
+- Implementation of customized geographical aggregation and Agglomerative Hierarchical clustering to capture cross-regional interdependencies and streamline computational complexity.
+- Automation of data collection, preparation, processing, and result generation across arbitrary geographical regions, reducing manual effort and minimizing errors in WEF assessments.
+- Integration of agro-climatic data for additional crops and scalability in aggregating administrative regions.
+- Promotion of sustainable collaboration through the use of open-source tools and datasets. GeoCLEWs is openly licensed under the MIT License, providing transparent, self-descriptive, and reproducible scripts and essential supplementary documents to encourage user contributions.
 
-Note: If you use macOS machine, [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) should be installed before starting. 
+GeoCLEWs performs processing and calibration of agro-climatic potential yield, crop water deficit, crop evapotranspiration, precipitation, and land cover. Outputs can be efficiently combined with additional data for CLEWs modelling, such as electricity information, to create a detailed CLEWs model without implementing complicated and time-consuming spatial processing. Jupiter Notebook code provides a comprehensive and detailed explanation of the processing steps involved.
+
+Note: GeoCLEWs has been successfully tested and verified on Windows machines. However, there may be incompatibility issues with other operating systems due to differences in Python packages or their versions. 
+
+Contributors:
+------------------------------------------------
+**[Yalda Saedi](https://github.com/Ysaedi)** - Developer<br />
+**[Taco Niet](https://github.com/tniet)** - Supervisor<br />
 
 
-Creating the Environment
+Release Notes
+------------------------------------------------
+### Version 2.0.0 (July 2024):
+
+- **Spatial Clustering**: Implements spatial clustering to capture cross-regional interdependencies and reduce computational complexity.
+- **Optimal Clusters Identification**: Generates dendrograms and elbow graphs to identify the optimal number of spatial clusters.
+- **Cluster Classification**: Classifies regions into clusters based on agro-climatic potential yield patterns and soil suitability.
+- **CLEWs-Compatible Outputs**: Generates CSV files for individual clusters in each region, providing statistics on land cover, precipitation, crop potential yield, water deficit, and evapotranspiration.
+
+
+### Version 1.0.0 (December 2023):
+- **Crop Identification**: Identifies primary crops using FAOSTAT data, including agro-ecological stats for five additional crops.
+- **GAEZ Data Collection**: Automates data extraction and preprocessing from GAEZ datasets.
+- **Land Cell Generation**: Generates georeferenced land cells adaptable to any geographical boundary.
+- **Spatial Attributes Extraction**: Integrates high resolution agro-ecological attributes into land cells.
+- **Geographical Aggregation**: Aggregates administrative regions to reduce CLEWs modelling computation.
+- **CLEWs-Compatible Outputs**: Provides tabular outputs and interactive graphs.
+
+Creating and Activating the Environment
 ------------------------------------------------
 Please ensure that you install all the necessary Python packages and their dependencies for the smooth functioning of the script. An environment YAML file, 'environment.yml', is provided to facilitate reproducing of the Python environment and avoid any potential version conflicts. 
-To set up the environment, run the following commands:
+To set up the environment, run the following command:
 
-### Windows
 
     conda env create -f environment.yml
-
-### macOS
-    # Make sure that Docker Desktop is running.
-    docker build -t gc --platform linux/amd64 .  
-    docker create -it --name geoclews gc
-
-Activating the Environment
-------------------------------------------------
-To activate the environment set, run the following commands:
-
-### Windows
-
-    conda activate GeoCLEWs
-
-### macOS
-
-    docker start -ai geoclews
     conda activate GeoCLEWs
 
 Download Files and Data
@@ -51,4 +63,7 @@ Outputs
 ---------------------------------------------------
 GeoCLEWs code produces tabular results in a CSV format which is compatible with clewsy for CLEWs modelling, along with interactive graphs. The GAEZ portal provides continuous raster data representing crop yields in kg DW/ha and crop water deficit, precipitation, and crop evapotranspiration in millimeter. Units presented in this analysis are recalculated based on the CLEWs framework, and therefore, the million tonnes per 1000 km² unit of measurement is used to quantify agro-climatic potential yield. Crop water deficit, crop evapotranspiration, and precipitation are calculated in BCM (billion cubic meters) per 1000 km². These units have been chosen to ensure consistency with the CLEWs methodology and facilitate comparability with other studies. The output of categorical land cover raster data is summarized in units of square kilometers. 
 
+Contact
+-----------------------------------------
+For any inquiries, please contact [Yalda Saedi](https://www.linkedin.com/in/yalda-saedi/).
 
