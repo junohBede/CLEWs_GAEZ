@@ -1,5 +1,5 @@
 # Scenario Name
-scenario: "Sample"
+scenario: "1"
 
 # Country Code (Three letters)
 geographic_scope: "Guyana"
@@ -10,7 +10,7 @@ rcp: "RCP4.5"
 # Admin region level
 # 0 for national processing, admin level 0.
 # 1 for processing at admin level 1.
-admin_level: 1
+admin_level: 0
 
 # Aggregating regions
 # If you are processing at admin level 1 and there are more than 7 regions, it is advised to group regions to speed up computational processing.
@@ -18,11 +18,12 @@ admin_level: 1
 # Set to True to aggregate into groups.
 aggregate: False
 
+aggregate_region: ["TAI", "TUR"]
 # Number of regions to be grouped into one group
 region_per_group: 10
 
 # In the case of aggregation, there is an option to extract a specific region and avoid aggregation
-# It is required to input the first 3 letters of the specific region e.g. "TAI" refers to Taita Taveta county in Kenya.
+# It is required to shapefile the first 3 letters of the specific region e.g. "TAI" refers to Taita Taveta county in Kenya.
 #extract: False
 #ext_region: "TAI"
 
@@ -31,3 +32,7 @@ region_per_group: 10
 crs_WGS84: "EPSG:4326"
 crs_proj: "EPSG:24821"
 
+number_of_clusters: {
+
+    'GUY': 4
+}
