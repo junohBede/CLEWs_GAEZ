@@ -42,7 +42,7 @@ Creating and Activating the Environment
 
 
 
-> OSeMOSYS Global is currently tested on **UNIX** systems. If you are using Windows, we suggest you install Windows Subsystem for Linux
+> CLEWs_GAEZ is currently tested on **UNIX** systems. If you are using Windows, we suggest you install Windows Subsystem for Linux
 
 Please ensure that you install all the necessary Python packages and their dependencies for the smooth functioning of the script. An environment YAML file, 'environment.yml', is provided to facilitate reproducing of the Python environment and avoid any potential version conflicts. 
 To set up the environment, run the following command:
