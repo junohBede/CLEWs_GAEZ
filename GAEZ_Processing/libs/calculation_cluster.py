@@ -4,7 +4,10 @@ import os
 from libs.constants import OUTPUT_DATA_PATH
 
 
-def calculate(scenario, country_name, admin_level, land_cells, other_crop_name, regions_info):
+def calculate(land_cells, other_crop_name, regions_info, input_data):
+    scenario = input_data['scenario']
+    admin_level = input_data['admin_level']
+    country_name = input_data['country_name']
     regions_list = regions_info["regions_list"]
     regions_gdf = regions_info["regions_gdf"]
     origin_list_of_cols = gpd.read_file(

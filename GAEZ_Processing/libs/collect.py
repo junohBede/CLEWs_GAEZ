@@ -8,7 +8,8 @@ import shutil as sh
 from libs.constants import GLOBAL_RASTER_PATH, INPUT_DATA_PATH, INTERIM_DATA_PATH
 
 
-def retrieve_top_10_crops(country_full_name):
+def retrieve_top_10_crops(input_data):
+    country_full_name = input_data["geographic_scope"]
     # Read the FAOSTAT file
     data = pd.read_csv('./Data/FAOSTAT_2020.csv')
     filtered_data = data[data['Area'] == country_full_name]
@@ -26,8 +27,7 @@ def retrieve_top_10_crops(country_full_name):
     return main_crops, other_crops
 
 
-def standardize_faostat(country_full_name):
-    main_crops, other_crops = retrieve_top_10_crops(country_full_name)
+def standardize_faostat(main_crops, other_crops):
     crop_code = pd.read_csv('./Data/Crop_code.csv')
     # FAO correction: 3 letter naming convention per crop considering CLEWs naming format
     crop_name = []
@@ -83,8 +83,8 @@ def download_url(dataframe, column, folder_name):
         print(f"Downloaded: {filename}")
 
 
-def process_gaez_data(country_full_name, rcp):
-    crop_name, other_crop_name, crop_code = standardize_faostat(country_full_name)
+def process_gaez_data(crop_name, other_crop_name, crop_code, input_data):
+    rcp = input_data["rcp"]
     # GAEZ data list - potential yield, water deficit, evapotranspiration
     gaez_data = ['yld', 'cwd', 'evt']
     gaez_df = {}
@@ -116,5 +116,4 @@ def process_gaez_data(country_full_name, rcp):
         download_url(other_low, "Download URL", GLOBAL_RASTER_PATH)
     sh.copyfile(f'{INPUT_DATA_PATH}/precipitation prc.tif', f'{GLOBAL_RASTER_PATH}/precipitation prc.tif')
     sh.copyfile(f'{INPUT_DATA_PATH}/LCType_ncb.tif', f'{GLOBAL_RASTER_PATH}/LCType_ncb.tif')
-    return other_crop_name
 

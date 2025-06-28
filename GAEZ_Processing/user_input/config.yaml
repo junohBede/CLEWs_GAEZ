@@ -1,5 +1,5 @@
 # Scenario Name
-scenario: "1"
+scenario: "Guyana"
 
 # Country Code (Three letters)
 geographic_scope: "Guyana"
@@ -18,7 +18,7 @@ admin_level: 0
 # Set to True to aggregate into groups.
 aggregate: False
 
-aggregate_region: ["TAI", "TUR"]
+aggregate_region: []
 # Number of regions to be grouped into one group
 region_per_group: 10
 

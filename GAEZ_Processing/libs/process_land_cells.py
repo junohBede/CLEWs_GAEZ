@@ -10,7 +10,10 @@ import matplotlib.pyplot as plt
 from libs.constants import USER_INPUTS_PATH, OUTPUT_DATA_PATH, SHAPEFILE_PATH
 
 
-def read_shapefiles(country_name, admin_level, crs_w):
+def read_shapefiles(input_data):
+    country_name = input_data['country_name']
+    admin_level = input_data['admin_level']
+    crs_w = input_data['crs_WGS84']
     shp_file_path = f"{SHAPEFILE_PATH}/gadm41_{country_name}"
     shapefile = gpd.read_file(shp_file_path + f"_{admin_level}.shp")
     shapefile.to_crs(crs_w, inplace=True)
@@ -19,8 +22,9 @@ def read_shapefiles(country_name, admin_level, crs_w):
     return shapefile, admin
 
 
-def generate_georeference(shapefile, scenario, country_name):
-
+def generate_georeference(shapefile, input_data):
+    scenario = input_data['scenario']
+    country_name = input_data['country_name']
     # Create point grid
     spacing = 0.09
     xmin, ymin, xmax, ymax = shapefile.total_bounds
@@ -46,7 +50,11 @@ def generate_georeference(shapefile, scenario, country_name):
     return gridinside
 
 
-def convert_points_to_polygons(shapefile, clustered_gdf, crs_w, admin_level, aggregate, aggregate_region):
+def convert_points_to_polygons(shapefile, clustered_gdf, input_data):
+    crs_w = input_data['crs_WGS84']
+    admin_level = input_data['admin_level']
+    aggregate = input_data['aggregate']
+    aggregate_region = input_data['aggregate_region']
     # Calculate the centroids
     clustered_gdf = clustered_gdf.to_crs(crs_w)
 
@@ -110,7 +118,12 @@ def get_multiplier(estimated, official):
         return 0
 
 
-def calibrate_area(scenario, country_name, admin_level, admin, clustered_gdf, crs_p, crs_w):
+def calibrate_area(admin, clustered_gdf, input_data):
+    admin_level = input_data['admin_level']
+    country_name = input_data['country_name']
+    scenario = input_data['scenario']
+    crs_w = input_data['crs_WGS84']
+    crs_p = input_data['crs_proj']
     print(clustered_gdf.head(3))
     clustered_gdf_prj = clustered_gdf.to_crs(crs_p)
     clustered_gdf_prj["sqkm"] = clustered_gdf_prj["geometry"].area / 10 ** 6

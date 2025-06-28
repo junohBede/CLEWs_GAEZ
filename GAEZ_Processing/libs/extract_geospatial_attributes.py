@@ -88,7 +88,8 @@ def geojson_to_gdf(workspace, geojson_file):
     return land_cells
 
 
-def clip_raster_file(admin, crs_wgs):
+def clip_raster_file(admin, input_data):
+    crs_wgs = input_data['crs_WGS84']
     admin = admin.to_crs(crs_wgs)
     for i in os.listdir(GLOBAL_RASTER_PATH):
         with rasterio.open(os.path.join(GLOBAL_RASTER_PATH, i)) as src:
@@ -143,26 +144,28 @@ def collect_raster_files():
     for raster in raster_files_dis:
         print("*", raster)
 
-    return raster_files_con, raster_files_dis, CROPPED_RASTER_PATH
+    return raster_files_con, raster_files_dis
 
 
-def extract_raster_values(scenario, country_name, admin_level):
+def extract_raster_values(input_data, raster_files_con, raster_files_dis):
+    scenario = input_data['scenario']
+    country_name = input_data['country_name']
+    admin_level = input_data['admin_level']
     land_cells = gpd.read_file(f"{OUTPUT_DATA_PATH}/{scenario}/{country_name}_vector_admin{admin_level}_land_cells.gpkg")
-    raster_files_con, raster_files_dis, out_path_raster = collect_raster_files()
 
     for raster in raster_files_con:
         prefix = raster.rstrip(".tif")
         prefix = prefix + "_"
 
         # Calling the extraction function for continuous layers
-        land_cells = processing_raster_con(out_path_raster, raster, prefix, "mean", land_cells)
+        land_cells = processing_raster_con(CROPPED_RASTER_PATH, raster, prefix, "mean", land_cells)
 
     for raster in raster_files_dis:
         prefix = raster.rstrip(".tif")
         prefix = prefix.rstrip('_ncb')
 
         # Calling the extraction function for discrete layers
-        land_cells = processing_raster_cat(out_path_raster, raster, prefix, land_cells)
+        land_cells = processing_raster_cat(CROPPED_RASTER_PATH, raster, prefix, land_cells)
 
     land_cells = geojson_to_gdf(f"{OUTPUT_DATA_PATH}/{scenario}", land_cells)
     # Export as csv

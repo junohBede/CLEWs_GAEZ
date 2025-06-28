@@ -10,7 +10,11 @@ import pandas as pd
 from libs.constants import OUTPUT_DATA_PATH
 
 
-def prepare_data_for_clustering(scenario, country_name, admin_level, n_clusters):
+def prepare_data_for_clustering(input_data):
+    scenario = input_data['scenario']
+    country_name = input_data['country_name']
+    admin_level = input_data['admin_level']
+    n_clusters = input_data['number_of_clusters']
     os.environ["OMP_NUM_THREADS"] = "1"
 
     # Generating Dendrogram
